@@ -7,16 +7,17 @@ import {
 } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import { Link } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./App.css";
 import axios from "axios";
 import Login from "./components/login";
 import Register from "./components/register";
 import Home from "./components/home";
 import ProtectedRoute from "./components/protectedRoute";
+import { Context, ContextProvider } from "./Context";
 
 const App = () => {
-  const [user, setUser] = useState({});
+  const { user, setUser } = useContext(Context);
 
   return (
     <div className="App">

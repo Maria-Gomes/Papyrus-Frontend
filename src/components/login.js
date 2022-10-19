@@ -1,14 +1,15 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component, useState, useEffect, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import axios from "axios";
+import { Context } from "../Context";
 
 const Login = () => {
   let navigate = useNavigate();
 
   const [loginEmail, setLoginEmail] = useState({});
   const [loginPassword, setLoginPassword] = useState({});
-  const [user, setUser] = useState({});
+  const { user, setUser } = useContext(Context);
 
   const login = () => {
     axios({
@@ -23,11 +24,14 @@ const Login = () => {
       .then((res) => {
         setUser({ email: loginEmail, password: loginPassword });
       })
-      .then((res) => {
-        navigate("/home");
-      })
       .catch((err) => console.log(err));
   };
+
+  useEffect(() => {
+    if (user) {
+      navigate("/home");
+    }
+  }, [user]);
 
   return (
     <div>
