@@ -9,7 +9,7 @@ const Login = () => {
 
   const [loginEmail, setLoginEmail] = useState({});
   const [loginPassword, setLoginPassword] = useState({});
-  const { user, setUser } = useContext(Context);
+  const { isAuthenticated, setIsAuthenticated } = useContext(Context);
 
   const login = () => {
     axios({
@@ -22,18 +22,18 @@ const Login = () => {
       url: "http://localhost:3001/users/login",
     })
       .then((res) => {
-        localStorage.setItem("user", loginEmail);
-        setUser(localStorage.getItem("user"));
+        localStorage.setItem("isAuthenticated", true);
+        setIsAuthenticated(localStorage.getItem("isAuthenticated"));
       })
       .catch((err) => console.log(err));
   };
 
   useEffect(() => {
-    console.log(user);
-    if (user) {
+    console.log(isAuthenticated);
+    if (isAuthenticated) {
       navigate("/home");
     }
-  }, [user]);
+  }, [isAuthenticated]);
 
   return (
     <div>

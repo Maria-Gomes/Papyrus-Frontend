@@ -2,9 +2,13 @@ import React, { useState } from "react";
 
 export const Context = React.createContext();
 export const ContextProvider = ({ children }) => {
-  const [user, setUser] = useState(localStorage.getItem("user"));
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    localStorage.getItem("isAuthenticated")
+  );
 
   return (
-    <Context.Provider value={{ user, setUser }}>{children}</Context.Provider>
+    <Context.Provider value={{ isAuthenticated, setIsAuthenticated }}>
+      {children}
+    </Context.Provider>
   );
 };

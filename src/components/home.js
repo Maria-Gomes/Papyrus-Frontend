@@ -5,14 +5,12 @@ import "bootstrap/dist/css/bootstrap.css";
 import axios from "axios";
 import { Context } from "../Context";
 import CollectionPreview from "./collectionPreview";
-import { useCookies } from "react-cookie";
 
 const Home = () => {
   let navigate = useNavigate();
 
-  const { user, setUser } = useContext(Context);
+  const { isAuthenticated, setIsAuthenticated } = useContext(Context);
   const [collectionData, setCollections] = useState([0]);
-  const [cookies, setCookie] = useCookies(["connect.sid"]);
   const collections = collectionData.map((collection) => {
     return (
       <CollectionPreview
@@ -43,22 +41,22 @@ const Home = () => {
       url: "http://localhost:3001/users/logout",
     })
       .then((res) => {
-        localStorage.removeItem("user");
-        setUser(null);
+        localStorage.removeItem("isAuthenticated");
+        setIsAuthenticated(null);
       })
       .catch((err) => console.log(err));
   };
 
   useEffect(() => {
-    if (!user) {
+    if (!isAuthenticated) {
       navigate("/");
     }
-  }, [user]);
+  }, [isAuthenticated]);
 
   return (
     <div>
       <h1>Home</h1>
-      <p>Email: {user.email}</p>
+      <p>User logged in: {isAuthenticated}</p>
       <h2>Collections</h2>
       {collections}
       <button className="btn btn-outline-danger" onClick={logout}>

@@ -17,7 +17,7 @@ import ProtectedRoute from "./components/protectedRoute";
 import { Context, ContextProvider } from "./Context";
 
 const App = () => {
-  const { user, setUser } = useContext(Context);
+  const { isAuthenticated, setIsAuthenticated } = useContext(Context);
 
   return (
     <div className="App">
@@ -29,7 +29,7 @@ const App = () => {
           <Route
             path="/home"
             element={
-              <ProtectedRoute user={user}>
+              <ProtectedRoute user={isAuthenticated}>
                 <Home />
               </ProtectedRoute>
             }
