@@ -22,12 +22,14 @@ const Login = () => {
       url: "http://localhost:3001/users/login",
     })
       .then((res) => {
-        setUser({ email: loginEmail, password: loginPassword });
+        localStorage.setItem("user", loginEmail);
+        setUser(localStorage.getItem("user"));
       })
       .catch((err) => console.log(err));
   };
 
   useEffect(() => {
+    console.log(user);
     if (user) {
       navigate("/home");
     }
