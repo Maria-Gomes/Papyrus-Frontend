@@ -10,7 +10,7 @@ const Home = () => {
   let navigate = useNavigate();
 
   const { isAuthenticated, setIsAuthenticated } = useContext(Context);
-  const [collectionData, setCollections] = useState([0]);
+  const [collectionData, setCollections] = useState([]);
   const collections = collectionData.map((collection) => {
     return (
       <CollectionPreview
@@ -27,7 +27,12 @@ const Home = () => {
       url: "http://localhost:3001/collections",
     })
       .then((res) => {
-        setCollections(res.data.collections);
+        if (res.data.error_msg) {
+          localStorage.removeItem("isAuthenticated");
+          setIsAuthenticated(null);
+        } else {
+          setCollections(res.data.collections);
+        }
       })
       .catch((err) => console.log(err));
   };
@@ -56,7 +61,6 @@ const Home = () => {
   return (
     <div>
       <h1>Home</h1>
-      <p>User logged in: {isAuthenticated}</p>
       <h2>Collections</h2>
       {collections}
       <button className="btn btn-outline-danger" onClick={logout}>

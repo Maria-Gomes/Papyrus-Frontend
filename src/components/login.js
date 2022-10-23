@@ -22,8 +22,13 @@ const Login = () => {
       url: "http://localhost:3001/users/login",
     })
       .then((res) => {
-        localStorage.setItem("isAuthenticated", true);
-        setIsAuthenticated(localStorage.getItem("isAuthenticated"));
+        if (res.data.error_msg) {
+          localStorage.setItem("isAuthenticated", null);
+          navigate("/");
+        } else {
+          localStorage.setItem("isAuthenticated", true);
+          setIsAuthenticated(localStorage.getItem("isAuthenticated"));
+        }
       })
       .catch((err) => console.log(err));
   };
