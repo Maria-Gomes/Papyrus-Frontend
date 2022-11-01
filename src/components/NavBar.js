@@ -56,7 +56,10 @@ function NavBar() {
                   placeholder="Search"
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
-                <button class="btn btn-outline-success" onClick={handleSearch}>
+                <button
+                  className="btn btn-outline-success"
+                  onClick={handleSearch}
+                >
                   Search
                 </button>
               </div>

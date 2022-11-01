@@ -15,6 +15,7 @@ import SearchResult from "./components/SearchResults";
 import ProtectedRoute from "./components/protectedRoute";
 import { Context, ContextProvider } from "./Context";
 import NavBar from "./components/NavBar";
+import BookDetails from "./components/bookDetails";
 
 const App = () => {
   const { isAuthenticated, setIsAuthenticated } = useContext(Context);
@@ -34,6 +35,7 @@ const App = () => {
             }
           />
           <Route path="/search" element={<SearchResult />}></Route>
+          <Route path="/book/:key" element={<BookDetails />}></Route>
         </Routes>
       </Router>
     </div>

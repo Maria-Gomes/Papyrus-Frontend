@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import axios from "axios";
 
 function SearchResult() {
@@ -8,8 +8,7 @@ function SearchResult() {
     if (item) {
       return (
         <div key={item.key}>
-          <h3>{item.title}</h3>
-          <h4>{item.author_name[0] || "Author not found."}</h4>
+          <Link to={`/book/${item.key.split("/")[2]}`}>{item.title}</Link>
         </div>
       );
     }
