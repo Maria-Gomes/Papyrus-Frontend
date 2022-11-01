@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import axios from "axios";
 import { Context } from "../Context";
 import CollectionPreview from "./collectionPreview";
+import NavBar from "./NavBar";
 
 const Home = () => {
   let navigate = useNavigate();
@@ -60,6 +61,7 @@ const Home = () => {
 
   return (
     <div>
+      <NavBar>Papyrus</NavBar>
       <h1>Home</h1>
       <h2>Collections</h2>
       {collections}
