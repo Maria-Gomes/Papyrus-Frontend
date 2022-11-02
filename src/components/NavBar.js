@@ -5,6 +5,7 @@ import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import axios from "axios";
 import SearchResult from "./SearchResults";
+import CollectionForm from "./collectionForm";
 
 function NavBar() {
   let navigate = useNavigate();
@@ -40,6 +41,14 @@ function NavBar() {
                 {" "}
                 <Link className="text-decoration-none text-white" to="/home">
                   Home
+                </Link>
+              </Nav.Link>
+              <Nav.Link>
+                <Link
+                  className="text-decoration-none text-white"
+                  to="/createCollection"
+                >
+                  Create Collection
                 </Link>
               </Nav.Link>
               <Nav.Link>

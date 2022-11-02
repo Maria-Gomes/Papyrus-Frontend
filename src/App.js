@@ -16,6 +16,7 @@ import ProtectedRoute from "./components/protectedRoute";
 import { Context, ContextProvider } from "./Context";
 import NavBar from "./components/NavBar";
 import BookDetails from "./components/bookDetails";
+import CollectionForm from "./components/collectionForm";
 
 const App = () => {
   const { isAuthenticated, setIsAuthenticated } = useContext(Context);
@@ -39,6 +40,7 @@ const App = () => {
             path="/book/:key/:author/:isbn"
             element={<BookDetails />}
           ></Route>
+          <Route path="/createCollection" element={<CollectionForm />}></Route>
         </Routes>
       </Router>
     </div>
