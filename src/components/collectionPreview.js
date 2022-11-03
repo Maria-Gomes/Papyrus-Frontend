@@ -15,7 +15,7 @@ const CollectionPreview = ({ collection }) => {
     );
   });
 
-  useEffect(() => setBookData(collection.books), [bookData]);
+  useEffect(() => setBookData(collection.books), []);
 
   return (
     <div>
