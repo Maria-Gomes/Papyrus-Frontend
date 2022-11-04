@@ -6,12 +6,9 @@ const CollectionPreview = ({ collection }) => {
   const books = bookData.map((item) => {
     return (
       <div key={item.book._id}>
+        <img src={item.book.isbn}></img>
         <p>{item.book.title}</p>
-        <br></br>
         <p>{item.book.author}</p>
-        <br></br>
-        <p>{item.book.description}</p>
-        <p>{item.book._id}</p>
         {collection.collection_name == "Currently Reading" ? (
           <BookProgress book_id={item.book._id}></BookProgress>
         ) : (

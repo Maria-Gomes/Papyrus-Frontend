@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
+import NavBar from "./NavBar";
 
 function BookDetails() {
   let navigate = useNavigate();
@@ -55,13 +56,14 @@ function BookDetails() {
 
   return (
     <div>
+      <NavBar />
       <img
         src={`http://covers.openlibrary.org/b/isbn/${isbn}-M.jpg`}
         alt="book cover"
       />
       <h3>{book.title}</h3>
       <h4>{author}</h4>
-      <p>{book.description.value ?? "No description found"}</p>
+      <p>{book.description?.value ?? "No description found"}</p>
       <div>
         <fieldset>
           <label className="m-3">Collection Name</label>

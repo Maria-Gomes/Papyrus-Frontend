@@ -1,5 +1,7 @@
 import { useLocation, Link } from "react-router-dom";
 import axios from "axios";
+import { Navbar } from "react-bootstrap";
+import NavBar from "./NavBar";
 
 function SearchResult() {
   const { state } = useLocation();
@@ -13,19 +15,23 @@ function SearchResult() {
         item.isbn = [];
       }
       return (
-        <div key={item.key}>
-          <img
-            src={`http://covers.openlibrary.org/b/isbn/${item.isbn[0]}-M.jpg`}
-            alt="book cover"
-          />
-          <Link
-            to={`/book/${item.key.split("/")[2]}/${item.author_name[0]}/${
-              item.isbn[0]
-            }`}
-          >
-            {item.title}
-          </Link>
-          <p>Author: {item.author_name[0] || "No Author information found."}</p>
+        <div>
+          <div key={item.key}>
+            <img
+              src={`http://covers.openlibrary.org/b/isbn/${item.isbn[0]}-M.jpg`}
+              alt="book cover"
+            />
+            <Link
+              to={`/book/${item.key.split("/")[2]}/${item.author_name[0]}/${
+                item.isbn[0]
+              }`}
+            >
+              {item.title}
+            </Link>
+            <p>
+              Author: {item.author_name[0] || "No Author information found."}
+            </p>
+          </div>
         </div>
       );
     }
@@ -34,6 +40,7 @@ function SearchResult() {
 
   return (
     <div>
+      <NavBar />
       <h1>Search Results</h1>
       {searchResults}
     </div>

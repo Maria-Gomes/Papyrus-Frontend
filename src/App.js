@@ -17,6 +17,7 @@ import { Context, ContextProvider } from "./Context";
 import NavBar from "./components/NavBar";
 import BookDetails from "./components/bookDetails";
 import CollectionForm from "./components/collectionForm";
+import "./styles/navbar.css";
 
 const App = () => {
   const { isAuthenticated, setIsAuthenticated } = useContext(Context);
