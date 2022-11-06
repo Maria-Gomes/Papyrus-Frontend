@@ -2,6 +2,7 @@ import { useLocation, Link } from "react-router-dom";
 import axios from "axios";
 import { Navbar } from "react-bootstrap";
 import NavBar from "./NavBar";
+import "../images/default_cover0.jpeg";
 
 function SearchResult() {
   const { state } = useLocation();
@@ -18,13 +19,20 @@ function SearchResult() {
         <div>
           <div key={item.key}>
             <img
-              src={`http://covers.openlibrary.org/b/isbn/${item.isbn[0]}-M.jpg`}
+              src={
+                item.isbn[0]
+                  ? `http://covers.openlibrary.org/b/isbn/${item.isbn[0]}-M.jpg`
+                  : "/images/default_cover0.jpeg"
+              }
               alt="book cover"
             />
             <Link
-              to={`/book/${item.key.split("/")[2]}/${item.author_name[0]}/${
-                item.isbn[0]
-              }`}
+              to={`/book/${item.key.split("/")[2]}`}
+              state={{
+                isbn: item.isbn[0],
+                title: item.title,
+                author: item.author_name[0] ?? "No author found",
+              }}
             >
               {item.title}
             </Link>

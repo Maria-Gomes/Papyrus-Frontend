@@ -37,10 +37,7 @@ const App = () => {
             }
           />
           <Route path="/search" element={<SearchResult />}></Route>
-          <Route
-            path="/book/:key/:author/:isbn"
-            element={<BookDetails />}
-          ></Route>
+          <Route path="/book/:key" element={<BookDetails />}></Route>
           <Route path="/createCollection" element={<CollectionForm />}></Route>
         </Routes>
       </Router>

@@ -1,12 +1,19 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import NavBar from "./NavBar";
+import "../styles/bookDetails.css";
+import "../images/default_cover0.jpeg";
 
 function BookDetails() {
   let navigate = useNavigate();
-  let { key, author, isbn } = useParams();
-  const [book, setBook] = useState({ description: { value: null } });
+  let { key } = useParams();
+  const bookInfo = useLocation();
+  const [collectionData, setCollections] = useState([]);
+
+  const [book, setBook] = useState({
+    description: { value: "No description found." },
+  });
   const stateref = useRef();
   stateref.current = book;
 
@@ -14,7 +21,7 @@ function BookDetails() {
     axios({
       method: "GET",
       withCredentials: true,
-      url: `http://localhost:3001/book/${key}/${author}/${isbn}`,
+      url: `http://localhost:3001/book/${key}`,
     })
       .then((res) => {
         setBook(res.data);
@@ -26,7 +33,37 @@ function BookDetails() {
     getBook();
   }, []);
 
+  const getCollections = () => {
+    axios({
+      method: "GET",
+      withCredentials: true,
+      url: "http://localhost:3001/collections",
+    })
+      .then((res) => {
+        if (res.data.error_msg) {
+          console.log(res.data.error_msg);
+        } else {
+          setCollections(res.data.collections);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getCollections();
+    console.log(collectionName);
+  }, []);
+
   const [collectionName, setCollectionName] = useState({});
+
+  const collections = collectionData.map((collection) => {
+    return (
+      <option key={collection._id} value={collection.collection_name}>
+        {collection.collection_name}
+      </option>
+    );
+  });
+
   const [totalPages, setTotalPages] = useState({});
 
   const addBook = () => {
@@ -34,11 +71,13 @@ function BookDetails() {
       method: "POST",
       data: {
         collection_name: collectionName,
-        title: book.title,
+        title: bookInfo.state.title,
         key: key,
-        author: author,
-        isbn: `http://covers.openlibrary.org/b/isbn/${isbn}-M.jpg`,
-        description: book.description.value ?? "No description found",
+        author: bookInfo.state.author,
+        isbn: bookInfo.state.isbn
+          ? `http://covers.openlibrary.org/b/isbn/${bookInfo.state.isbn}-M.jpg`
+          : "/images/default_cover0.jpeg",
+        description: book.description?.value ?? "No description found",
         totalPages: totalPages,
       },
       withCredentials: true,
@@ -58,20 +97,25 @@ function BookDetails() {
     <div>
       <NavBar />
       <img
-        src={`http://covers.openlibrary.org/b/isbn/${isbn}-M.jpg`}
+        src={
+          bookInfo.state.isbn
+            ? `http://covers.openlibrary.org/b/isbn/${bookInfo.state.isbn}-M.jpg`
+            : "/images/default_cover0.jpeg"
+        }
         alt="book cover"
       />
-      <h3>{book.title}</h3>
-      <h4>{author}</h4>
+      <h3>{bookInfo.state.title}</h3>
+      <h4>{bookInfo.state.author}</h4>
       <p>{book.description?.value ?? "No description found"}</p>
       <div>
         <fieldset>
-          <label className="m-3">Collection Name</label>
-          <input
-            placeholder="My Collection"
-            required
+          <select
+            className="collection-dropdown"
+            placeholder="Collection"
             onChange={(e) => setCollectionName(e.target.value)}
-          ></input>
+          >
+            {collections}
+          </select>
           <label className="m-3">Total Pages</label>
           <input
             type="number"
