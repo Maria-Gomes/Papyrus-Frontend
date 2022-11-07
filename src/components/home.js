@@ -62,8 +62,7 @@ const Home = () => {
   return (
     <div>
       <NavBar>Papyrus</NavBar>
-      <br></br>
-      <h2 styles="padding-top: 1rem;">Collections</h2>
+      <h2 className="pt-3">Collections</h2>
       {collections}
       <button className="btn btn-outline-danger" onClick={logout}>
         Logout

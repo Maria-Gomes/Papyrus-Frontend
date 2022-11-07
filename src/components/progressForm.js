@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
+import "../styles/progressForm.css";
 
 function BookProgress(book_id) {
   let navigate = useNavigate();
@@ -30,7 +31,11 @@ function BookProgress(book_id) {
     <div>
       <fieldset>
         <label className="m-3">Pages Read:</label>
-        <input required onChange={(e) => setPagesRead(e.target.value)}></input>
+        <input
+          className="progress-input"
+          required
+          onChange={(e) => setPagesRead(e.target.value)}
+        ></input>
         <button onClick={updateProgress} className="btn btn-primary btn-sm">
           Submit
         </button>
